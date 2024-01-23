@@ -4,11 +4,12 @@ import Cookies from 'universal-cookie'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import { loginUser } from '@/services/services'
+const cookie = new Cookies
 
 import * as yup from 'yup'
 
 
-const cookie = new Cookies
+
 
 const FormLogin = () => {
 
@@ -21,7 +22,7 @@ const FormLogin = () => {
       },
       onSuccess:(response)=>{
         const token = response?.data?.token
-        cookie.set("jwt", token, { path: '/', maxAge: 3600, sameSite: true })
+        cookie.set("jwt", token, { path: '/', maxAge: 3600*12 })
         token && router.replace('/feed')
       },
       onError:(error)=>{

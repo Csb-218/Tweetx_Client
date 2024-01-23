@@ -21,7 +21,7 @@ const FormSignUp = () => {
         },
         onSuccess: (response) => {
             const token = response?.data?.token
-            cookie.set("jwt", token, { path: '/', maxAge: 3600, sameSite: true })
+            cookie.set("jwt", token, { path: '/', maxAge: 3600 })
             token && router.replace('/feed')
         },
         onError: (error) => {
