@@ -2,31 +2,17 @@ import {useState,useRef} from 'react'
 import { useAuth } from '@/context/AuthContext';
 import { TweetXCard, UserXCard } from '@/components/containers';
 import { getUserFeed, createPost } from '@/services/services';
-import { CreatePostModal } from '@/components/modals';
 import { FormCreatePost } from '@/components/forms';
 
-import { useMutation } from 'react-query';
+import { useMutation,useQuery } from 'react-query';
 
-export async function getServerSideProps(context) {
 
-  const { jwt } = context?.req?.cookies
-  const response = await getUserFeed(jwt)
-  const feed = response?.feed
-
-  return {
-    props: {
-      feed: feed || []
-    }
-  }
-
-}
-
-const index = ({ feed }) => {
+const index = () => {
   
   const formRef = useRef();
   const userObject = useAuth();
   
-  const [tweets,setTweets] = useState([...feed])
+  const [tweets,setTweets] = useState([])
 
   const token = userObject?.user?.token
 
@@ -35,14 +21,21 @@ const index = ({ feed }) => {
       return createPost(token, data)
     },
     onSuccess: (res) => {
-      // console.log('created post successfully!', res?.data)
       setTweets([res?.data?.post,...tweets])
-      // console.log(formRef?.current)
       formRef?.current?.reset()
     },
     onError: (error) => {
-      console.error('created post successfully!', error)
+      console.error('create post error',error)
     }
+  })
+
+  const {isLoading:tweetsLoading}= useQuery({
+    queryKey:['tweets'],
+    queryFn:()=> getUserFeed(token),
+    enabled:!!token,
+    onSuccess:(res => {
+      setTweets([...res?.data?.feed,...tweets])
+    })
   })
 
   return (
@@ -57,7 +50,7 @@ const index = ({ feed }) => {
         
         {
           tweets ?
-          tweets?.length >= 1 ?
+          tweets?.length > 0 ?
               <div>
                 {
                   tweets?.map((tweet, index) => {
