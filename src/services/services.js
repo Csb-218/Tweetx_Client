@@ -35,15 +35,8 @@ export async function getUserFeed(token) {
          Authorization: `Bearer ${token}`
       }
    }
-
-   try {
-      const feedResponse = await axios.request(feedOptions)
-      return feedResponse?.data
-   }
-   catch (error) {
-      // console.error(error)
-      return null
-   }
+   const response = await axios.request(feedOptions)
+   return response
 
 }
 // GET ALL USERS
