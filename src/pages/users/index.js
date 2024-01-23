@@ -3,6 +3,7 @@ import { UserXCard } from '@/components/containers';
 import { useMutation,useQuery } from 'react-query'
 import { getUsers ,follow,unfollow,getUserInfo } from '@/services/services';
 import { useAuth } from '@/context/AuthContext';
+import LoadingSpinner from '@/components/loaders/LoadingSpinner';
 
 const index = () => {
 
@@ -19,7 +20,7 @@ const index = () => {
     onSuccess:(res)=>{}
   })
 
-  const {isLoading:usersLoading, data:usersData} = useQuery({
+  const {isLoading:usersLoading, data:usersData,isRefetching} = useQuery({
     queryKey:['users'],
     queryFn:()=>{
       return getUsers(token)
@@ -65,6 +66,10 @@ const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
     <div className=' flex justify-center'>
       <div className='w-1/2 '>
         {
+          usersLoading || isRefetching?
+
+          <LoadingSpinner/>
+          :
           usersData?.data?.users?.map((user,index)=> {
 
               return (
@@ -75,12 +80,10 @@ const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
                  Follow={Follow} 
                  unFollow={unFollow}
                  loading={loading}
-
-                 
                  />
                  )
-            
           })
+          
         }
       </div>
 
