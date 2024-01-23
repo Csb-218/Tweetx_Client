@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       userState && setUser(null)
     }
 
-  },[router])
+  },[])
 
 
   return <AuthContext.Provider value={{ user }} >{children}</AuthContext.Provider>
