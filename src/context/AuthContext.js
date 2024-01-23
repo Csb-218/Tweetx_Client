@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, useContext } from 'react'
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { jwtDecode } from 'jwt-decode';
+const cookies = new Cookies
 
 const AuthContext = createContext();
 
@@ -10,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter()
   const { userState } = router.query
   const [user, setUser] = useState(null)
-  const cookies = new Cookies
+ 
 
   useEffect(() => {
     const token = cookies.get('jwt')
