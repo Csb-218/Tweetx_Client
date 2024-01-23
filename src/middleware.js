@@ -15,15 +15,13 @@ export async function middleware(req) {
     console.log(error, 15)
   }
 
-  if (pathname === '/') {
-    return NextResponse.redirect(new URL('/feed', req.url))
-  }
+
 
   if (pathname === '/auth/Login' || pathname === '/auth/Signup') {
     return NextResponse?.next()
   }
 
-  if(pathname === '/auth/LogOut'){
+  if (pathname === '/auth/LogOut') {
 
     const response = NextResponse?.next()
     response.cookies.delete('jwt')
@@ -38,6 +36,10 @@ export async function middleware(req) {
 
     }
     else {
+      
+      if (pathname === '/') {
+        return NextResponse.redirect(new URL('/feed', req.url))
+      }
       return NextResponse?.next()
     }
   }
