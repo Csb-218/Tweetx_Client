@@ -32,13 +32,15 @@ export async function middleware(req) {
   else {
     if (!(token?.name === 'jwt' && decoded?.data?.id)) {
 
-      return NextResponse.redirect('/auth/Login')
+      const url = new URL('/auth/Login', req.url)
+      return NextResponse.redirect(url)
 
     }
     else {
 
       if (pathname === '/') {
-        return NextResponse.redirect('/feed')
+        const url = new URL('/feed', req.url)
+        return NextResponse.redirect(url)
       }
       return NextResponse?.next()
     }
