@@ -15,6 +15,10 @@ export async function middleware(req) {
     console.log(error, 15)
   }
 
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/feed', req.url))
+  }
+
   if (pathname === '/auth/Login' || pathname === '/auth/Signup') {
     return NextResponse?.next()
   }
