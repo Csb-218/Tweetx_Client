@@ -4,7 +4,6 @@ import { jwtDecode } from 'jwt-decode'
 export async function middleware(req) {
 
   const { pathname  } = req?.nextUrl
-
   const token = req?.cookies?.get("jwt")
 
   let decoded
