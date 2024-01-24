@@ -24,7 +24,7 @@ const FormLogin = () => {
         onSuccess: (response) => {
             const token = response?.data?.token
 
-            router?.push({
+            router?.replace({
                 pathname: '/auth/Authenticate',
                 query: { token: token },
             })
