@@ -8,27 +8,22 @@ const Login = () => {
 
     return (
         <>
-        <div className=" h-full  z-20 flex flex-col lg:space-y-24 space-y-10 ">
+            <div className=" h-full flex  flex-col lg:space-y-24 space-y-10  ">
+                {/* login form */}
+                <FormLogin />
 
-            <div className="flex flex-col space-y-10 ml-6">
-                {/* logo */}
-                <p className="text-4xl text-rose-400">TweetX</p>
-                {/* signup button */}
-                <Link href="/auth/Signup" >
-                    <button className="btn btn-outline btn-accent w-full max-w-48">
-                        Create Account
-                    </button>
-                </Link>
             </div>
 
-            {/* login form */}
-            <FormLogin />
+            <div className='relative z-0'>
 
-        </div>
+                <div className='fixed top-0 right-0   bg-red-300 '>
+                    <img src={authPageBg} className='h-screen lg:w-auto w-full' />
+                </div>
 
-        <img src={authPageBg} className='absolute top-0 right-0 object-cover h-full  z-10 w-8/12 '/>
+            </div>
         </>
-        
+
+
     )
 }
 

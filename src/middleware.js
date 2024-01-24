@@ -3,7 +3,8 @@ import { jwtDecode } from 'jwt-decode'
 // This function can be marked `async` if using `await` inside
 export async function middleware(req) {
 
-  const { pathname } = req?.nextUrl
+  const { pathname  } = req?.nextUrl
+
   const token = req?.cookies?.get("jwt")
 
   let decoded
@@ -13,6 +14,13 @@ export async function middleware(req) {
   }
   catch (error) {
     console.log(error, 15)
+  }
+
+  if(pathname === '/auth/Authenticate'){
+    const token = req?.nextUrl?.searchParams.get('token')
+    const nextResponse = NextResponse?.next()
+    nextResponse.cookies?.set('jwt',token)
+    return nextResponse
   }
 
 
