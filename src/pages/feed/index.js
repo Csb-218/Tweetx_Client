@@ -14,7 +14,7 @@ const index = () => {
   const formRef = useRef();
   const userObject = useAuth();
 
-  const [tweets, setTweets] = useState([])
+  // const [tweets, setTweets] = useState([])
 
   const token = userObject?.user?.token
 
@@ -23,7 +23,7 @@ const index = () => {
       return createPost(token, data)
     },
     onSuccess: (res) => {
-      setTweets([res?.data?.post, ...tweets])
+      refetch()
       formRef?.current?.reset()
     },
     onError: (error) => {
@@ -31,31 +31,32 @@ const index = () => {
     }
   })
 
-  const { isLoading: tweetsLoading, isSuccess,isRefetching } = useQuery({
+  const { isLoading: tweetsLoading,data:tweetsResponse, isSuccess,isRefetching,refetch } = useQuery({
     queryKey: ['tweets'],
     queryFn: () => getUserFeed(token),
     enabled: !!token,
     onSuccess: (res => {
-      setTweets([...res?.data?.feed, ...tweets])
     })
   })
 
+  const tweets = tweetsResponse?.data?.feed
+
   return (
 
-    <div className=' mt-20 flex flex-col items-center'>
+    <div className=' flex flex-col items-center'>
 
       <FormCreatePost addPost={addPost} isLoading={isLoading} ref={formRef} />
 
       {/* <CreatePostModal addPost={addPost} isLoading={isLoading}/> */}
-      <div className=' flex justify-center  w-10/12'>
+      <div className=' flex justify-center  lg:w-10/12 w-11/12'>
 
 
         {
-          tweetsLoading || isRefetching?
+          tweetsLoading ?
             <LoadingSpinner/>
             :
             isSuccess ?
-              tweets?.length > 0 ?
+            tweets?.length > 0 ?
                 <div>
                   {
                     tweets?.map((tweet, index) => {

@@ -36,7 +36,7 @@ const PreviewImage = ({ file, type }) => {
             alt=""
             className={
                 type === 'post' ?
-                    'object-cover max-h-60 '
+                    'object-cover max-h-60  '
                     :
                     'object-cover w-full h-full border-2 rounded-full'
             }

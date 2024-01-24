@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
         <AuthProvider>
           <NavigationProvider>
               <NavBar />
-              <div className='mt-16'>
+              <div className='overflow-scroll mt-16  '>
                 <Component {...pageProps} />
               </div>
           </NavigationProvider>

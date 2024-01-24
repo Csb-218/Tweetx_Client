@@ -1,58 +1,60 @@
 import { useState, useEffect } from 'react'
 import { TweetXCard, UserXCard } from '../containers'
 import { useAuth } from '@/context/AuthContext'
-import { useMutation,useQuery } from 'react-query'
-import { getUserFollowers , getUserFollowing ,follow,unfollow  } from '@/services/services'
+import { useMutation, useQuery } from 'react-query'
+import { getUserFollowers, getUserFollowing, follow, unfollow } from '@/services/services'
 
-const ProfileXTab = ({ posts,loggedUser,loadingPosts,refetchPosts,refetchUser,deletePost}) => {
+const ProfileXTab = ({ posts, loggedUser, loadingPosts, refetchPosts, refetchUser, deletePost }) => {
 
     const [active, setActive] = useState(1)
-    const {user} = useAuth()
+    const [unfollowing,setunFollowing] = useState([])
+    const { user } = useAuth()
     const token = user?.token
 
     // fetching followers
-    const {isLoading:followersLoading,data:followers,refetch:refetchFollowers} = useQuery({
-        queryKey:['followers'],
-        queryFn:()=>{
+    const { isLoading: followersLoading, data: followers, refetch: refetchFollowers } = useQuery({
+        queryKey: ['followers'],
+        queryFn: () => {
             return getUserFollowers(token)
         },
-        onSuccess:(res)=> {
+        onSuccess: (res) => {
         },
-        enabled:!!token,
-        onError:(err)=> console.error('follower fetchError',err),
+        enabled: !!token,
+        onError: (err) => console.error('follower fetchError', err),
     })
 
     // fetching following
-    const {isLoading:followingLoading,data:following,refetch:refetchFollowing} = useQuery({
-        queryKey:['following'],
-        queryFn:()=>{
+    const { isLoading: followingLoading, data: following, refetch: refetchFollowing } = useQuery({
+        queryKey: ['following'],
+        queryFn: () => {
             return getUserFollowing(token)
         },
-        onSuccess:(res)=> {
+        onSuccess: (res) => {
 
         },
-        enabled:!!token,
-        onError:(err)=> console.error('following fetchError',err),
+        enabled: !!token,
+        onError: (err) => console.error('following fetchError', err),
     })
-   
-  
-    // unfollow a user
-    const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
 
-        mutationFn:(user_id)=>{
-           return unfollow(token,user_id)
+
+    // unfollow a user
+    const { isLoading: unfollowLoading, mutate: unFollow } = useMutation({
+
+        mutationFn: (user_id) => {
+            setunFollowing([user_id,...unfollowing])
+            return unfollow(token, user_id)
         },
-        onSuccess:()=>{
+        onSuccess: (res) => {
+            setunFollowing(unfollowing?.filter(ele => ele !== res?.data?.unfollowed))
             refetchFollowing()
             refetchUser()
-
         },
-        onError:()=>{
+        onError: () => {
             console.error(error)
         }
     })
 
-   
+
 
 
     return (
@@ -61,19 +63,19 @@ const ProfileXTab = ({ posts,loggedUser,loadingPosts,refetchPosts,refetchUser,de
             <div className="grid grid-cols-3 w-full ">
                 <button
                     onClick={() => setActive(1)}
-                    className={active === 1 ?'border-b-2 p-2':''}
+                    className={active === 1 ? 'border-b-2 p-2' : ''}
                 >
                     Posts
                 </button>
                 <button
                     onClick={() => setActive(2)}
-                    className={active === 2 ?'border-b-2 p-2':''}
+                    className={active === 2 ? 'border-b-2 p-2' : ''}
                 >
                     Followers
                 </button>
                 <button
                     onClick={() => setActive(3)}
-                    className={active === 3 ?'border-b-2 p-2':''}
+                    className={active === 3 ? 'border-b-2 p-2' : ''}
                 >
                     Following
                 </button>
@@ -87,7 +89,7 @@ const ProfileXTab = ({ posts,loggedUser,loadingPosts,refetchPosts,refetchUser,de
                         {
                             posts?.map((post, index) => {
                                 return (
-                                    <TweetXCard key={index} tweet={post} page={'profile'} deletePost={deletePost}/>
+                                    <TweetXCard key={index} tweet={post} page={'profile'} deletePost={deletePost} />
                                 )
                             })
                         }
@@ -113,12 +115,13 @@ const ProfileXTab = ({ posts,loggedUser,loadingPosts,refetchPosts,refetchUser,de
                         {
                             following?.data?.following?.map((followed, index) => {
                                 return (
-                                    <UserXCard 
-                                    key={index} 
-                                    user={followed} 
-                                    loggedUser={loggedUser}
-                                    unFollow={unFollow} 
-                                    tab={3}
+                                    <UserXCard
+                                        key={index}
+                                        user={followed}
+                                        loggedUser={loggedUser}
+                                        unFollow={unFollow}
+                                        unfollowing={unfollowing}
+                                        tab={3}
                                     />
                                 )
                             })

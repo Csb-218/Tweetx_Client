@@ -14,23 +14,23 @@ const ProfileXCard = ({user}) => {
             </div>
 
             {/* card information */}
-            <div className="card-body ">
+            <div className="card-body relative">
                 <h2 className="card-title">{user?.userName}</h2>
 
-                <div className="grid grid-cols-3 mt-4 w-8/12">
+                <div className="grid grid-cols-3 mt-4 lg:w-8/12 ">
                     <p>posts: {user?.posts?.length}</p>
                     <p>followers: {user?.followers?.length}</p>
                     <p>following: {user?.following?.length}</p>
                 </div>
-
-            </div>
-
             <Link  
-              className="btn btn-ghost btn-sm" 
+              className="btn btn-ghost btn-sm absolute top-0 right-0" 
               href='/auth/LogOut'
               >
                 Log out
             </Link>
+            </div>
+
+            
         </div>
 
     )

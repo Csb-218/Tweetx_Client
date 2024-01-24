@@ -1,15 +1,19 @@
-import React from 'react'
+import {useState,useReducer} from 'react'
 import { UserXCard } from '@/components/containers';
 import { useMutation,useQuery } from 'react-query'
 import { getUsers ,follow,unfollow,getUserInfo } from '@/services/services';
 import { useAuth } from '@/context/AuthContext';
 import LoadingSpinner from '@/components/loaders/LoadingSpinner';
 
+
 const index = () => {
 
   const userObject = useAuth()
-
+  const [following,setFollowing] = useState([])
+  const [unfollowing,setunFollowing] = useState([])
   const token = userObject?.user?.token
+
+
 
   const {isLoading:loggedUserLoading, data:loggedUserData , refetch} = useQuery({
     queryKey:['loggedUser'],
@@ -20,7 +24,7 @@ const index = () => {
     onSuccess:(res)=>{}
   })
 
-  const {isLoading:usersLoading, data:usersData,isRefetching} = useQuery({
+  const {isLoading:usersLoading, data:usersData,isRefetching,} = useQuery({
     queryKey:['users'],
     queryFn:()=>{
       return getUsers(token)
@@ -32,26 +36,28 @@ const index = () => {
   const {isLoading:followLoading,mutate:Follow} = useMutation({
 
     mutationFn:(user_id)=>{
+       setFollowing([user_id,...following])
        return follow(token,user_id)
     },
-    onSuccess:()=>{
-      // console.log('followed')
+    onSuccess:(res)=>{
+      setFollowing(following?.filter(ele => ele !== res?.data?.followed))
+      console.log('followed',res)
       refetch()
     },
     onError:()=>{
-
     },
-    
 })
 
-const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
 
+
+const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
     mutationFn:(user_id)=>{
-        // console.log('hi')
+       setunFollowing([user_id,...unfollowing])
        return unfollow(token,user_id)
     },
-    onSuccess:()=>{
-        // console.log('unfollowed')
+    onSuccess:(res)=>{
+        setunFollowing(unfollowing?.filter(ele => ele !== res?.data?.unfollowed))
+        console.log('unfollowed',res)
         refetch()
     },
     onError:()=>{
@@ -59,14 +65,14 @@ const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
     }
 })
 
-  const loading = followLoading || unfollowLoading
+  
 
 
   return (
-    <div className=' flex justify-center'>
-      <div className='w-1/2 '>
+    <div className=' flex justify-center '>
+      <div className='lg:w-1/2 '>
         {
-          usersLoading || isRefetching?
+          usersLoading ?
 
           <LoadingSpinner/>
           :
@@ -79,7 +85,8 @@ const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
                  loggedUser={loggedUserData?.data?.user} 
                  Follow={Follow} 
                  unFollow={unFollow}
-                 loading={loading}
+                 following={following}
+                 unfollowing={unfollowing}
                  />
                  )
           })
