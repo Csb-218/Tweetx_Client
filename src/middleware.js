@@ -5,6 +5,7 @@ export async function middleware(req) {
 
   const { pathname  } = req?.nextUrl
   const token = req?.cookies?.get("jwt")
+  const nextResponse = NextResponse?.next()
 
   let decoded
 
@@ -17,7 +18,6 @@ export async function middleware(req) {
 
   if(pathname === '/auth/Authenticate'){
     const token = req?.nextUrl?.searchParams.get('token')
-    const nextResponse = NextResponse?.next()
     nextResponse.cookies?.set('jwt',token)
     return nextResponse
   }
@@ -25,14 +25,13 @@ export async function middleware(req) {
 
 
   if (pathname === '/auth/Login' || pathname === '/auth/Signup') {
-    return NextResponse?.next()
+    return nextResponse
   }
 
   if (pathname === '/auth/LogOut') {
-
-    const response = NextResponse?.next()
-    response.cookies.delete('jwt')
-    return response
+    
+    nextResponse.cookies.delete('jwt')
+    return nextResponse
 
   }
 
@@ -49,7 +48,7 @@ export async function middleware(req) {
         const url = new URL('/feed', req.url)
         return NextResponse.redirect(url)
       }
-      return NextResponse?.next()
+      return nextResponse
     }
   }
 
