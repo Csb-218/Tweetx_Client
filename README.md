@@ -45,7 +45,7 @@ Hi I am React.js Developer with a flair for crafting stunning user interfaces us
 
 😄 Pronouns : he
 ## 🔗 Links
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/c-s-bhagwant-82461b197)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/c-s-bhagwant-82461b197)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/CsBhagwant)
 
 
