@@ -9,7 +9,6 @@ import { useMutation } from 'react-query'
 import * as yup from 'yup'
 import Link from 'next/link'
 
-const cookie = new Cookies
 
 const FormSignUp = () => {
 
@@ -20,10 +19,10 @@ const FormSignUp = () => {
         mutationFn: (values) => {
             return registerUser(values)
         },
-        onSuccess: (response) => {
-            const token = response?.data?.token
+        onSuccess: async(response) => {
+            const token = await response?.data?.token
 
-            router?.replace({
+            token && router?.replace({
                 pathname: '/auth/Authenticate',
                 query: { token: token },
             })

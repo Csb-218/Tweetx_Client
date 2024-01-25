@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import { loginUser } from '@/services/services'
 import Link from 'next/link'
-const cookie = new Cookies
+
 
 import * as yup from 'yup'
 
@@ -21,10 +21,10 @@ const FormLogin = () => {
         mutationFn: (values) => {
             return loginUser(values)
         },
-        onSuccess: (response) => {
-            const token = response?.data?.token
+        onSuccess: async(response) => {
+            const token = await response?.data?.token
 
-            router?.replace({
+            token && router?.replace({
                 pathname: '/auth/Authenticate',
                 query: { token: token },
             })
