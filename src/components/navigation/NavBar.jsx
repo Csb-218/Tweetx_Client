@@ -51,7 +51,7 @@ const NavBar = () => {
                         })}
                     </ul>
                 </details>
-                <a className="btn btn-ghost text-xl text-rose-400" href='feed'>TweetX</a>
+                <a className="btn btn-ghost text-xl text-rose-400" href='/feed'>TweetX</a>
             </div>
             <div className="navbar-center hidden lg:flex ">
                 <ul className="flex space-x-5 px-1 mx-5">
