@@ -9,7 +9,7 @@ const NavBar = () => {
 
     const { page, setPage } = useNav();
     const router = useRouter()
-    const currentPage = router?.pathname?.replace("/", "")
+    const currentPage = router?.pathname
     const [hide, setHide] = useState(false)
 
     const navigate = (page) => {
