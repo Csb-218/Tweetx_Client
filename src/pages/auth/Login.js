@@ -16,7 +16,7 @@ const Login = () => {
 
             <div className='relative z-0'>
 
-                <div className='fixed top-0 right-0   bg-red-300 '>
+                <div className='fixed top-0 right-0    '>
                     <img src={authPageBg} className='h-screen lg:w-auto w-full' />
                 </div>
 
