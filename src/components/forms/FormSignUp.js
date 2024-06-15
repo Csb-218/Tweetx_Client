@@ -160,7 +160,7 @@ const FormSignUp = () => {
                     <input
                         name='password'
                         onChange={formik?.handleChange}
-                        type="text"
+                        type="password"
                         placeholder="Password"
                         className="input  w-full max-w-sm bg-zinc-100"
                     />
@@ -176,7 +176,7 @@ const FormSignUp = () => {
                     <input
                         name='confirmPassword'
                         onChange={formik?.handleChange}
-                        type="text"
+                        type="password"
                         placeholder="confirmPassword"
                         className="input  w-full max-w-sm bg-zinc-100"
                     />

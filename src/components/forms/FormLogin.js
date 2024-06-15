@@ -10,8 +10,6 @@ import Link from 'next/link'
 import * as yup from 'yup'
 
 
-
-
 const FormLogin = () => {
 
     const router = useRouter()
@@ -96,7 +94,7 @@ const FormLogin = () => {
 
                         name='password'
                         onChange={formik?.handleChange}
-                        type="text"
+                        type="password"
                         placeholder="Password"
                         className="input  w-full max-w-sm bg-zinc-100"
                     />
