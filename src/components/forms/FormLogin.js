@@ -68,7 +68,7 @@ const FormLogin = () => {
                 </Link>
             </div>
 
-            <div className='mx-6 z-50'>
+            <div className='mx-6 z-50 lg:w-auto w-full'>
                 <p className='text-3xl text-slate-600'>Login</p>
                 <form
                     onSubmit={formik?.handleSubmit}

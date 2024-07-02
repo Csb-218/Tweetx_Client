@@ -88,7 +88,7 @@ const FormSignUp = () => {
                 </Link>
             </div>
 
-            <div className="mx-6 z-50">
+            <div className="mx-6 z-50 lg:w-auto  w-full">
 
                 <p className='text-3xl ml-6 text-slate-600 '>Create Account</p>
                 <form

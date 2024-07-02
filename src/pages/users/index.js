@@ -70,7 +70,7 @@ const {isLoading:unfollowLoading,mutate:unFollow} = useMutation({
 
   return (
     <div className=' flex justify-center '>
-      <div className='lg:w-1/2 '>
+      <div className='w-full '>
         {
           usersLoading ?
 

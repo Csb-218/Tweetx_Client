@@ -7,7 +7,7 @@ const Signup = () => {
   return (
 
     <>
-    <div className=" h-full flex flex-col lg:space-y-16 space-y-10 ">
+    <div className=" h-full flex flex-col lg:space-y-16  space-y-10 ">
 
       {/* login form */}
       <FormSignUp />

@@ -48,7 +48,7 @@ const index = () => {
       <FormCreatePost addPost={addPost} isLoading={isLoading} ref={formRef} />
 
       {/* <CreatePostModal addPost={addPost} isLoading={isLoading}/> */}
-      <div className=' flex justify-center  lg:w-10/12 w-11/12'>
+      <div className=' flex justify-center  lg:w-10/12  w-11/12'>
 
 
         {
@@ -74,9 +74,6 @@ const index = () => {
               'Could not fetch feed posts !'
 
         }
-
-
-
 
       </div>
 

@@ -58,7 +58,7 @@ const ProfileXTab = ({ posts, loggedUser, loadingPosts, refetchPosts, refetchUse
 
 
     return (
-        <div className=" lg:w-1/2 w-screen">
+        <div className="w-11/12">
             {/* tabs */}
             <div className="grid grid-cols-3 w-full ">
                 <button

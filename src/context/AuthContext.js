@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = cookies.get('jwt')
     const tokenDetails = token && jwtDecode(token)
-    // const {userName,email,id} = tokenDetails && tokenDetails?.data
 
     if (tokenDetails) {
       const user = {

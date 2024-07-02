@@ -43,7 +43,7 @@ const FormCreatePost = ({ addPost, isLoading }, ref) => {
 
         <form
             onSubmit={formik?.handleSubmit}
-            className='flex flex-col items-center space-y-5 lg:py-5  w-full lg:w-4/6  p-1'
+            className='flex flex-col items-center space-y-5 lg:py-5  lg:w-full w-11/12   p-1'
         >
 
             <div className={`lg:w-6/12 w-full overflow-hidden rounded-xl relative flex justify-center ${formik?.values?.postPicture && 'border-2'} `}>
@@ -74,14 +74,14 @@ const FormCreatePost = ({ addPost, isLoading }, ref) => {
             }
 
 
-            <div className='lg:w-6/12 w-full rounded-md relative '>
+            <div className='lg:w-10/12 w-full rounded-md relative '>
 
                 <textarea
                     name='postContent'
                     htmlFor='postContent'
                     onChange={formik?.handleChange}
                     value={formik?.values?.postContent}
-                    placeholder="write a description"
+                    placeholder="Thoughts..."
                     className="textarea pb-10 w-full max-h-40 min-h-20 "
                 />
                 
