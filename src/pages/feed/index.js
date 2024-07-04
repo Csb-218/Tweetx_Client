@@ -33,13 +33,17 @@ const index = () => {
 
   const { isLoading: tweetsLoading,data:tweetsResponse, isSuccess,isRefetching,refetch } = useQuery({
     queryKey: ['tweets'],
-    queryFn: () => getUserFeed(token),
-    enabled: !!token,
+    queryFn:()=>getUserFeed(token),
     onSuccess: (res => {
-    })
+      console.log(res)
+    }),
+    onError:(err)=>{
+      console.error(err)
+    }
   })
 
   const tweets = tweetsResponse?.data?.feed
+  // console.log(tweets,99,process.env.NEXT_PUBLIC_BASE_URL,isLoading)
 
   return (
 
