@@ -36,7 +36,7 @@ const FormCreatePost = ({ addPost, isLoading }, ref) => {
         }
     })
 
-    console.log(formik.values)
+    // console.log(formik.values)
 
     return (
 
