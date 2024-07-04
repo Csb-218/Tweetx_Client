@@ -35,7 +35,9 @@ export async function getUserFeed(token) {
          Authorization: `Bearer ${token}`
       }
    }
+
    const response = await axios.request(feedOptions)
+   // console.log(response,9009090090)
    return response
 
 }
