@@ -5,7 +5,7 @@ const Authenticate = () => {
 
     const router = useRouter()
     useEffect(()=>{
-       router.replace('/feed')
+       router.replace('/')
     },[])
   return (
     <></>
